@@ -16,6 +16,7 @@
 #include "messaging/MessageDispatcher.h"
 #include "Raven_Messages.h"
 #include "GraveMarkers.h"
+#include "Bot_Leader.h"
 
 #include "armory/Raven_Projectile.h"
 #include "armory/Projectile_Rocket.h"
@@ -177,23 +178,27 @@ void Raven_Game::Update()
   //update the triggers
   m_pMap->UpdateTriggerSystem(m_Bots);
 
+
   //if the user has requested that the number of bots be decreased, remove
   //one
   if (m_bRemoveABot)
-  { 
-    if (!m_Bots.empty())
-    {
-      Raven_Bot* pBot = m_Bots.back();
-      if (pBot == m_pSelectedBot)m_pSelectedBot=0;
-      NotifyAllBotsOfRemoval(pBot);
-      delete m_Bots.back();
-      m_Bots.remove(pBot);
-      pBot = 0;
-    }
+  {
+	  if (!m_Bots.empty())
+	  {
+		  Raven_Bot* pBot = m_Bots.back();
+		  if (pBot == m_pSelectedBot)m_pSelectedBot = 0;
+		  NotifyAllBotsOfRemoval(pBot);
+		  delete m_Bots.back();
+		  m_Bots.remove(pBot);
+		  if (pBot->isRed()) { m_EquipeRed.remove(pBot); }
+		  else if (pBot->isBlue()){ m_EquipeBlue.remove(pBot); };
+		  pBot = 0;
+	  }
 
-    m_bRemoveABot = false;
+	  m_bRemoveABot = false;
   }
 }
+
 
 
 //----------------------------- AttemptToAddBot -------------------------------
@@ -250,12 +255,12 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   {
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
-    Raven_Bot* rb = new Raven_Bot(this, Vector2D());
-
+    Bot_Leader* rb = new Bot_Leader(this, Vector2D());
+	rb->SetMaxSpeed(4);
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
     rb->GetSteering()->SeparationOn();
-
+	rb->SetEquipe();
     m_Bots.push_back(rb);
 
     //register the bot with the entity manager

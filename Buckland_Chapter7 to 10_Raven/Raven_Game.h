@@ -44,6 +44,12 @@ private:
   //a list of all the bots that are inhabiting the map
   std::list<Raven_Bot*>            m_Bots;
 
+  //list contenant les bots de l'équipe Rouge
+  std::list<Raven_Bot*>         m_EquipeRed;
+
+  //list contenant les bots de l'équipe Bleu
+  std::list<Raven_Bot*>         m_EquipeBlue;
+
   //the user may select a bot to control manually. This is a pointer to that
   //bot
   Raven_Bot*                       m_pSelectedBot;
@@ -102,6 +108,12 @@ public:
   //removes the last bot to be added
   void RemoveBot();
 
+  //teams
+  void AddBotEquipeRed(Raven_Bot* BotAdd){ m_EquipeRed.push_front(BotAdd); }
+  void AddBotEquipeBlue(Raven_Bot* BotAdd){ m_EquipeBlue.push_front(BotAdd); }
+  bool CheckEquipe();
+  std::list<Raven_Bot*>             GetEquipeRed(){ return m_EquipeRed; }
+  std::list<Raven_Bot*>             GetEquipeBlue(){ return m_EquipeBlue; }
   //returns true if a bot of size BoundingRadius cannot move from A to B
   //without bumping into world geometry
   bool isPathObstructed(Vector2D A, Vector2D B, double BoundingRadius = 0)const;

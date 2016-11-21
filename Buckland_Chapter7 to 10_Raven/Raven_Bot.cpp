@@ -28,7 +28,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
   MovingEntity(pos,
                script->GetDouble("Bot_Scale"),
                Vector2D(0,0),
-               script->GetDouble("Bot_MaxSpeed"),
+               1.0,
                Vector2D(1,0),
                script->GetDouble("Bot_Mass"),
                Vector2D(script->GetDouble("Bot_Scale"),script->GetDouble("Bot_Scale")),
@@ -44,13 +44,16 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_iNumUpdatesHitPersistant((int)(FrameRate * script->GetDouble("HitFlashTime"))),
                  m_bHit(false),
                  m_iScore(0),
+				 RavenBot_Team(Wait),
                  m_Status(spawning),
                  m_bPossessed(false),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
+	m_dPrecision = 10.0;
+  
   SetEntityType(type_bot);
-
+  SetEquipe();
   SetUpVertexBuffer();
   
   //a bot starts off facing in the direction it is heading
@@ -188,9 +191,9 @@ void Raven_Bot::UpdateMovement()
 
   //update the velocity
   m_vVelocity += accel;
-
+  m_vVelocity *= m_iMultSpeed;
   //make sure vehicle does not exceed maximum velocity
-  m_vVelocity.Truncate(m_dMaxSpeed);
+  m_vVelocity.Truncate(MaxSpeed());
 
   //update the position
   m_vPosition += m_vVelocity;
@@ -279,7 +282,44 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
   default: return false;
   }
 }
+ bool Raven_Bot::CheckEquipe() {
 
+	for each (Raven_Bot* rb in m_pWorld->GetEquipeRed())
+	{
+		if (this == rb) {
+			return true;
+		}
+	}
+	for each (Raven_Bot* rb in m_pWorld->GetEquipeBlue())
+	{
+		if (this == rb) {
+			return  true;
+		}
+	}
+
+	return false;
+}
+
+//ajoute le bot a une team s'il n'est pas déja dans une team 
+void Raven_Bot::SetEquipe(){
+	//check s'il est deja das un team 
+	bool Exist = this->CheckEquipe();
+
+	if (m_pWorld->GetEquipeBlue().size() <= m_pWorld->GetEquipeRed().size()) {
+		if (!Exist) {
+			m_pWorld->AddBotEquipeBlue(this);
+			this->SetBlue();
+		}
+
+	}
+	else if (m_pWorld->GetEquipeBlue().size() > m_pWorld->GetEquipeRed().size() && !Exist) {
+
+
+		m_pWorld->AddBotEquipeRed(this);
+		this->SetRed();
+
+	}
+}
 //------------------ RotateFacingTowardPosition -------------------------------
 //
 //  given a target position, this method rotates the bot's facing vector
@@ -394,7 +434,7 @@ void Raven_Bot::FireWeapon(Vector2D pos)
 //-----------------------------------------------------------------------------
 double Raven_Bot::CalculateTimeToReachPosition(Vector2D pos)const
 {
-  return Vec2DDistance(Pos(), pos) / (MaxSpeed() * FrameRate);
+  return Vec2DDistance(Pos(), pos) / (Speed() * FrameRate);
 }
 
 //------------------------ isAtPosition ---------------------------------------
@@ -485,9 +525,10 @@ void Raven_Bot::Render()
 
 
   if (isDead() || isSpawning()) return;
-  
-  gdi->BluePen();
-  
+  if (this->RavenBot_Team == Blue)
+	  gdi->BluePen();
+  if (this->RavenBot_Team == Red)
+	  gdi->RedPen();
   m_vecBotVBTrans = WorldTransform(m_vecBotVB,
                                    Pos(),
                                    Facing(),

@@ -25,7 +25,7 @@ GraveLifetime = 5
 -------------------------------------------------------------------------------
 
 Bot_MaxHealth = 100
-Bot_MaxSpeed  = 1
+Bot_MaxSpeed  = 2
 Bot_Mass      = 1
 Bot_MaxForce  = 1.0
 Bot_MaxHeadTurnRate = 0.2

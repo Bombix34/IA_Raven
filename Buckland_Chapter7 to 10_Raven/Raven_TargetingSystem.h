@@ -47,6 +47,9 @@ public:
   //returns true if the target is within the field of view of the owner
   bool       isTargetWithinFOV()const;
 
+  //return true if the target is an ally 
+  bool     isEnnemy(Raven_Bot*  m_pOwner)const;
+
   //returns true if there is unobstructed line of sight between the target
   //and the owner
   bool       isTargetShootable()const;

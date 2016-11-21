@@ -49,6 +49,22 @@ bool Raven_TargetingSystem::isTargetWithinFOV()const
   return m_pOwner->GetSensoryMem()->isOpponentWithinFOV(m_pCurrentTarget);
 }
 
+bool Raven_TargetingSystem::isEnnemy(Raven_Bot*  m_pOwner)const {
+	if (m_pCurrentTarget != NULL){
+		bool debug = (m_pOwner->isRed() == true && m_pCurrentTarget->isRed() == true);
+		bool debugBlue = (m_pOwner->isBlue() == true && m_pCurrentTarget->isBlue() == true);
+		bool debugall = debug || debugBlue;
+		if (debugall) {
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	else return false;
+}
+
 bool Raven_TargetingSystem::isTargetShootable()const
 {
   return m_pOwner->GetSensoryMem()->isOpponentShootable(m_pCurrentTarget);

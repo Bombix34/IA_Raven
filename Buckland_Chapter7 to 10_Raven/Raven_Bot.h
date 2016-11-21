@@ -36,9 +36,11 @@ class Raven_Bot : public MovingEntity
 {
 private:
 
-  enum Status{alive, dead, spawning};
+	enum Status{ alive, dead, spawning };  
+	//Team where the Bot belong
+	enum Team{ Red, Blue, Wait }; 
 
-private:
+protected:
 
   //alive, dead or spawning?
   Status                             m_Status;
@@ -81,6 +83,11 @@ private:
   //the bot's maximum health value. It starts its life with health at this value
   int                                m_iMaxHealth;
 
+  double							 m_dPrecision;
+  int								 m_iMultSpeed = 1;
+  
+  //Team 
+  Team                RavenBot_Team;
   //each time this bot kills another this value is incremented
   int                                m_iScore;
   
@@ -145,7 +152,16 @@ public:
   void          ReduceHealth(unsigned int val);
   void          IncreaseHealth(unsigned int val);
   void          RestoreHealthToMaximum();
-
+  double		GetPrecision()const{ return m_dPrecision; }
+ 
+  //attributs de gestion des Teams 
+  void			SetEquipe();
+  bool			CheckEquipe();
+  
+  bool          isRed()const{ return RavenBot_Team == Red; }
+  bool          isBlue()const{ return RavenBot_Team == Blue; }
+  void          SetRed(){ RavenBot_Team = Red; }
+  void          SetBlue(){ RavenBot_Team = Blue; }
   int           Score()const{return m_iScore;}
   void          IncrementScore(){++m_iScore;}
 
