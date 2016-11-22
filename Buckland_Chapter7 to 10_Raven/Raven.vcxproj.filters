@@ -77,6 +77,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{048cffa2-7135-4def-a7e4-eba606efbe10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Raven classes">
+      <UniqueIdentifier>{24e46b56-bb1c-47bd-999a-ca5961e03677}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -267,6 +270,21 @@
     </ClCompile>
     <ClCompile Include="..\Common\misc\WindowUtils.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Bot_Tank.cpp">
+      <Filter>Game\Raven classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Bot_Sniper.cpp">
+      <Filter>Game\Raven classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Bot_Assault.cpp">
+      <Filter>Game\Raven classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Bot_Leader.cpp">
+      <Filter>Game\Raven classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Raven_Bot_Class.cpp">
+      <Filter>Game\Raven classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -605,6 +623,21 @@
     </ClInclude>
     <ClInclude Include="..\Common\misc\WindowUtils.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot_Tank.h">
+      <Filter>Game\Raven classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot_Sniper.h">
+      <Filter>Game\Raven classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot_Assault.h">
+      <Filter>Game\Raven classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot_Leader.h">
+      <Filter>Game\Raven classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Raven_Bot_Class.h">
+      <Filter>Game\Raven classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

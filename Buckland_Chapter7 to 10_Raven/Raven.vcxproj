@@ -64,7 +64,8 @@
     <OutDir>.\Debug\</OutDir>
     <IntDir>.\Debug\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\kirak\Desktop\UQAC\Intelligence artificiel\MiniProjetShooting\Common\lua-5.1.3;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\Florian\Documents\IA_Raven\Common\lua-5.1.3;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Florian\Documents\IA_Raven\Common\lua-5.1.3\include;C:\Users\Florian\Documents\IA_Raven\Common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\Release\</OutDir>
@@ -142,7 +143,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>C:\Users\kirak\Desktop\UQAC\Intelligence artificiel\MiniProjetShooting\Common\lua-5.1.3\include;C:\Users\kirak\Desktop\UQAC\Intelligence artificiel\MiniProjetShooting\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Florian\Documents\IA_Raven\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -231,6 +232,10 @@
     <ClCompile Include="armory\Weapon_RailGun.cpp" />
     <ClCompile Include="armory\Weapon_RocketLauncher.cpp" />
     <ClCompile Include="armory\Weapon_ShotGun.cpp" />
+    <ClCompile Include="Bot_Assault.cpp" />
+    <ClCompile Include="Bot_Leader.cpp" />
+    <ClCompile Include="Bot_Sniper.cpp" />
+    <ClCompile Include="Bot_Tank.cpp" />
     <ClCompile Include="goals\AttackTargetGoal_Evaluator.cpp" />
     <ClCompile Include="goals\ExploreGoal_Evaluator.cpp" />
     <ClCompile Include="goals\GetHealthGoal_Evaluator.cpp" />
@@ -256,6 +261,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="navigation\Raven_PathPlanner.cpp" />
     <ClCompile Include="Raven_Bot.cpp" />
+    <ClCompile Include="Raven_Bot_Class.cpp" />
     <ClCompile Include="Raven_Door.cpp" />
     <ClCompile Include="Raven_Game.cpp" />
     <ClCompile Include="Raven_Map.cpp" />
@@ -336,6 +342,10 @@
     <ClInclude Include="armory\Weapon_RailGun.h" />
     <ClInclude Include="armory\Weapon_RocketLauncher.h" />
     <ClInclude Include="armory\Weapon_ShotGun.h" />
+    <ClInclude Include="Bot_Assault.h" />
+    <ClInclude Include="Bot_Leader.h" />
+    <ClInclude Include="Bot_Sniper.h" />
+    <ClInclude Include="Bot_Tank.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="goals\AttackTargetGoal_Evaluator.h" />
     <ClInclude Include="goals\ExploreGoal_Evaluator.h" />
@@ -366,6 +376,7 @@
     <ClInclude Include="navigation\SearchTerminationPolicies.h" />
     <ClInclude Include="navigation\TimeSlicedGraphAlgorithms.h" />
     <ClInclude Include="Raven_Bot.h" />
+    <ClInclude Include="Raven_Bot_Class.h" />
     <ClInclude Include="Raven_Door.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_Map.h" />
