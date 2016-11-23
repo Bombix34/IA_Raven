@@ -94,6 +94,9 @@ public:
   //shoots the current weapon at the given position
   void          ShootAt(Vector2D pos)const;
 
+  //calcul Pre
+  //void		CalculPrecision(Vector2D& AimingsPos)const;
+
   //returns a pointer to the current weapon
   Raven_Weapon* GetCurrentWeapon()const{return m_pCurrentWeapon;} 
 

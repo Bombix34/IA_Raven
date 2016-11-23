@@ -189,7 +189,8 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
 			{
 				//the position the weapon will be aimed at
 				Vector2D AimingPos = m_pOwner->GetTargetBot()->Pos();
-				//Add precision here
+				//Precision here
+
 				//if the current weapon is not an instant hit type gun the target position
 				//must be adjusted to take into account the predicted movement of the 
 				//target
@@ -207,7 +208,8 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
 						m_pOwner->hasLOSto(AimingPos))
 					{
 						AddNoiseToAim(AimingPos);
-
+						//Precision here
+						//AimingPos = CalculPrecision(AimingPos);
 						GetCurrentWeapon()->ShootAt(AimingPos);
 					}
 				}
@@ -222,7 +224,7 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
 						m_dReactionTime))
 					{
 						AddNoiseToAim(AimingPos);
-
+						//CalculPrecision(AimingPos);
 						GetCurrentWeapon()->ShootAt(AimingPos);
 					}
 				}
@@ -243,7 +245,47 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
 		m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos() + m_pOwner->Heading());
 	}
 }
-//---------------------------- AddNoiseToAim ----------------------------------
+
+/*precision Arme
+void  Raven_WeaponSystem::CalculPrecision(Vector2D& AimingPos)const {
+		Vector2D tmpAiming = AimingPos;
+		int Rand = RandInt(-1,1);
+		//precision du personnage
+		if (Rand < 0) {
+			AimingPos = tmpAiming / m_pOwner->GetPrecision();
+		}
+		if (Rand >= 0){
+			AimingPos = tmpAiming * m_pOwner->GetPrecision();
+		}
+		//inutile deja fait par le prof
+		
+		/int debugtype = GetCurrentWeapon()->GetType();
+		switch (GetCurrentWeapon()->GetType())
+		{
+		case type_blaster:
+			AimingPos = Vector2D(AimingPos.x + 0.5*Rand, AimingPos.y + (0.5*Rand));
+			return AimingPos;
+			break;
+		case type_rail_gun:
+			AimingPos = Vector2D(AimingPos.x + 0.1*Rand, AimingPos.y + 0.1*Rand);
+			return AimingPos;
+			break;
+		case type_rocket_launcher:
+			AimingPos = Vector2D(AimingPos.x + 0.8*Rand, AimingPos.y + 0.8*Rand);
+			return AimingPos;
+			break;
+		case type_shotgun:
+			AimingPos = Vector2D(AimingPos.x + 0.6*Rand, AimingPos.y + 0.6*Rand);
+			return AimingPos;
+			break;
+
+		default:
+			return AimingPos;
+			break;
+		}
+	
+}*/
+//---------------------------- AddNoiseToAim (Precision)----------------------------------
 //
 //  adds a random deviation to the firing angle not greater than m_dAimAccuracy 
 //  rads
@@ -252,6 +294,7 @@ void Raven_WeaponSystem::AddNoiseToAim(Vector2D& AimingPos)const
 {
   Vector2D toPos = AimingPos - m_pOwner->Pos();
 
+  Vec2DRotateAroundOrigin(toPos, RandInRange(-m_pOwner->GetPrecision(), m_pOwner->GetPrecision()));
   Vec2DRotateAroundOrigin(toPos, RandInRange(-m_dAimAccuracy, m_dAimAccuracy));
 
   AimingPos = toPos + m_pOwner->Pos();
